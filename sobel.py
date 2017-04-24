@@ -22,14 +22,17 @@ def abs_sobel_thresh(img, orient='x', thresh_min=0, thresh_max=255):
     return sbinary
     
 path2 = "test_images/"
-file = "test3.jpg"
+file = "test5.jpg"
 img = cv2.imread(path2+file)
 
 gradx = abs_sobel_thresh(img, orient='x', thresh_min=20, thresh_max=120)
 grady = abs_sobel_thresh(img, orient='y', thresh_min=20, thresh_max=120)
 
-#plt.imshow(sbinary, cmap="gray")
-#plt.show()
+plt.imshow(gradx, cmap="gray")
+plt.show()
+
+plt.imshow(grady, cmap="gray")
+plt.show()
 
 
 def mag_thresh(img, sobel_kernel=3, mag_thresh=(0, 255)):
@@ -52,8 +55,8 @@ def mag_thresh(img, sobel_kernel=3, mag_thresh=(0, 255)):
 
 mag_binary = mag_thresh(img, sobel_kernel=9, mag_thresh=(30,100))
 
-#plt.imshow(magbinary, cmap="gray")
-#plt.show()
+plt.imshow(mag_binary, cmap="gray")
+plt.show()
 
 def dir_threshold(img, sobel_kernel=3, thresh=(0, np.pi/2)):
     # Grayscale
@@ -72,8 +75,8 @@ def dir_threshold(img, sobel_kernel=3, thresh=(0, np.pi/2)):
 
 dir_binary = dir_threshold(img, sobel_kernel=9, thresh=(0.7,1.3))
 
-#plt.imshow(dirbinary, cmap="gray")
-#plt.show()
+plt.imshow(dir_binary, cmap="gray")
+plt.show()
 
 combined = np.zeros_like(dir_binary)
 combined[((gradx==1)&(grady==1))|((mag_binary == 1)&(dir_binary == 1))] = 1
