@@ -1,6 +1,16 @@
 # P4-CarND-Advanced-Lane-Finding
 This project detects the road lane, its curvature and position of vehicle from the center of the road
 
+Steps:
+
+	Compute the camera calibration matrix and distortion coefficients
+	
+	You only need to compute these once, and then you'll apply them to undistort each new frame. 
+	
+	Apply thresholds to create a binary image and then apply a perspective transform.
+	
+	
+
 
 For a lane line that is close to vertical, you can fit a line using this formula: f(y) = Ay^2 + By + C, where A, B, and C are coefficients.
 
