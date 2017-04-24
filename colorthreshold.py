@@ -67,8 +67,8 @@ add_to_plot(l_thresh, "L thresh", 7)
 add_to_plot(h_thresh, "H thresh", 8)
 
 
-combined = np.zeros_like(h_thresh)
-combined[((r_thresh==1)&(h_thresh==1))] = 1
+combined = np.zeros_like(s_thresh)
+combined[((r_thresh==1)|(s_thresh==1))] = 1
 
 add_to_plot(r_thresh, "R thresh", 9)
 add_to_plot(s_thresh, "S thresh", 10)
