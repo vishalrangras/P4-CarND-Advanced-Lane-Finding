@@ -35,7 +35,7 @@ def abs_sobel_thresh(img, orient='x', thresh_min=0, thresh_max=255):
 
     return sbinary
 
-def mag_thresh(img, sobel_kernel=9, mag_thresh=(30, 100)):
+def mag_thresh(img, sobel_kernel=9, mag_thresh=(30, 200)):
     sobelx = cv2.Sobel(img, cv2.CV_64F, 1, 0, ksize=sobel_kernel)
     sobely = cv2.Sobel(img, cv2.CV_64F, 0, 1, ksize=sobel_kernel)
     gradmag = np.sqrt(sobelx**2 + sobely**2)
@@ -54,14 +54,19 @@ def dir_threshold(img, sobel_kernel=9, thresh=(0.7, 1.3)):
     return binary_output
 
 def gradthresh(img):
-    gradx = abs_sobel_thresh(img, orient='x', thresh_min=20, thresh_max=120)
-    grady = abs_sobel_thresh(img, orient='y', thresh_min=20, thresh_max=120)
+    gradx = abs_sobel_thresh(img, orient='x', thresh_min=20, thresh_max=100)
+    grady = abs_sobel_thresh(img, orient='y', thresh_min=20, thresh_max=100)
     mag_binary = mag_thresh(img)
     dir_binary = dir_threshold(img)
 
     grad_combined = np.zeros_like(dir_binary)
-    grad_combined[((gradx==1)&(grady==1))|((mag_binary == 1)&(dir_binary == 1))] = 1
-
+    #grad_combined[((gradx==1)&(grady==1))|((mag_binary == 1)&(dir_binary == 1))] = 1
+    #grad_combined[((gradx==1)|(mag_binary == 1)) | ((grady == 1)&(dir_binary == 1))] = 1
+    #grad_combined[((gradx==1)&(mag_binary == 1)) | ((grady == 1)&(dir_binary == 1))] = 1
+    #grad_combined[((gradx==1)|(mag_binary == 1))] = 1
+    grad_combined[((gradx==1)|(mag_binary == 1)) & ((grady == 1)|(mag_binary == 1))] = 1
+    #grad_combined[((gradx==1)|(mag_binary == 1)) & (grady == 1)] = 1
+    
     return grad_combined
 
 path2 = "test_images/"
@@ -85,6 +90,9 @@ add_to_plot(img, "Source", 1, True)
 color_thresh = colorthresh(img)
 add_to_plot(color_thresh, "Color Threshold", 3)
 
+hls = cv2.cvtColor(img, cv2.COLOR_RGB2HLS)
+s_channel = hls[:,:,2]
+
 grad_thresh = gradthresh(color_thresh)
 add_to_plot(grad_thresh, "Gradient Threshold", 4)
 
@@ -92,9 +100,15 @@ color_binary = np.dstack(( np.zeros_like(grad_thresh), grad_thresh, color_thresh
 add_to_plot(color_binary, "Combined Stacked", 5)
 
 combined_color_grad_binary = np.zeros_like(grad_thresh)
-combined_color_grad_binary[(grad_thresh==1) | (color_thresh==1)] = 1
+combined_color_grad_binary[(grad_thresh==1) & (color_thresh==1)] = 1
 add_to_plot(combined_color_grad_binary, "Combined Threshold", 6)
 
 plt.tight_layout(h_pad=0, w_pad=0)
 plt.show()
-color_grad_threshold_plot.savefig('output_images/color_grad_threshold_plot_2.png')
+color_grad_threshold_plot.savefig('output_images/color_grad_threshold_plot_6.png')
+
+
+plt.imshow(combined_color_grad_binary, cmap="gray")
+plt.show()
+mpimg.imsave('output_images/combined_threshold_6.png',combined_color_grad_binary, cmap="gray")
+
