@@ -17,13 +17,18 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./examples/undistort_output.png "Undistorted"
-[image2]: ./test_images/test1.jpg "Road Transformed"
-[image3]: ./examples/binary_combo_example.jpg "Binary Example"
-[image4]: ./examples/warped_straight_lines.jpg "Warp Example"
-[image5]: ./examples/color_fit_lines.jpg "Fit Visual"
-[image6]: ./examples/example_output.jpg "Output"
-[video1]: ./project_video.mp4 "Video"
+[image1]: ./output_images/01-corners.png "Chessboard Corners"
+[image2]: ./output_images/02-undistorted_images.png "Undistorted Images"
+[image3]: ./output_images/03-undistorted_test6.jpg "Undistorted Lane Image"
+[image4]: ./output_images/04-color_threshold_plot.png "Color Threshold Grid"
+[image5]: ./output_images/05-color_grad_threshold_plot.png "Color and Gradient Threshold Grid"
+[image6]: ./output_images/06-combined_threshold.png "Sample Thresholded Binary"
+[image7]: ./output_images/07-warped_test3.jpg "Sample Warped Image - Bird's Eye View"
+[image8]: ./output_images/08-processed_images.png "Processed Image Grid"
+[image9]: ./output_images/09-lane_detected.png "Lane Detection using window search"
+[image10]: ./output_images/10-fill_poly.jpeg "Polynomial plotting of Lane"
+[image11]: ./output_images/11-Lanes_drawn.png "Lanes drawn on original image"
+[video1]: ./output_images/project_video_processed.mp4 "Video"
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/571/view) Points
 
@@ -57,6 +62,7 @@ The `objpoints` and `imgpoints` are then used to compute the camera calibration 
 #### 1. Provide an example of a distortion-corrected image.
 
 As explained above, the functions draw_corners() and undistort_img() serves as a mean for camera calibration and distortion correction. Below is a sample image saved after applying distortion correction to it for the purposes of demonstration.
+
 ![alt text][image3]
 
 #### 2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
@@ -81,6 +87,8 @@ In the 3rd Cell of Ipython notebook, the function warp() is declared which gives
 
 ![alt text][image7]
 
+![alt text][image8]
+
 #### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 
 The real business of finding Lane Lines starts in the  4th cell of Jupyter notebook. Three methods find_lane(), calculate_curvature_offset() and draw_lane() are defined in this particular cell of notebook and this cell does the real leg work for detecting and plotting Lane Lines.
@@ -91,7 +99,9 @@ Then after, a for loop iterates for each window such that the window slides from
 
 After completion of window iterations, the lane indices were been retrived from overall non-zero pixels so that the indices constitute only of the part of Lane Lines and rest of the pixel information can be ignored. np.polyfit was then used to plot a line of 2nd degree polynomial through Lane Indices for left as well as right lane. The computed lane line data was then returned from the function so that it can be used for next step.
 
-![alt text][image8]
+![alt text][image9]
+
+![alt text][image10]
 
 #### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
@@ -101,11 +111,9 @@ In the same code cell 4th of notebook, the method calculate_curvature_offset() d
 
 #### 6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
 
-I implemented this step in lines # through # in my code in `yet_another_file.py` in the function `map_lane()`.  Here is an example of my result on a test image:
+The 8th cell of Ipython notebook has the code to find lane lines on warped binary image and based to draw the lanes on the image and display the final output including Radius of curvature and offset of vehicle. Below is the final image output:
 
-![alt text][image9]
-
-![alt text][image6]
+![alt text][image11]
 
 ---
 
@@ -113,7 +121,9 @@ I implemented this step in lines # through # in my code in `yet_another_file.py`
 
 #### 1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
 
-Here's a [link to my video result](./project_video.mp4)
+Here's a [link to my video result](./project_video_processed.mp4)
+
+![video1]
 
 ---
 
@@ -121,4 +131,4 @@ Here's a [link to my video result](./project_video.mp4)
 
 #### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
-Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
+For the implementation of this project, I used all the computer vision techniques discussed in classroom module of P4 except Convolution method. I didn't got chance to understand and implement it due to time limitations but I would like to explore that method as well and compare the differences between both the approaches as a future scope of this project. Other than this, I believe that the pipeline is working fine because of the available day light but in darkness at night or similar whether conditions, it might not be entirely feasible to detect the lane lines using the same exact pipeline with pre-defined threshold values. According to me, a more targeted approach for Lane Detection would be to tune the threshold values dynamically based on different lighting conditions. Besides I am pretty sure that this lane detection program will not be able to succeed on Indian roads (from where I belong) where there are no Lane Lines on majority of the roads and even if there are lane lines, they might be very faded. So I believe for Indian roads, the Lane should be detected based on the road's edge or some other way instead of Lane marks. As a future scope, I would like to work on computer vision techniques which can help me identify where the road to drive is irrespective of presence of Lane Lines on the roads.
