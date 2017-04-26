@@ -122,9 +122,8 @@ After completion of window iterations, the lane indices were been retrived from 
 <p align="center"><b>Lane Detection using window search</b></p>
 <br>
 
-<p align="center">
 ![alt text][image10]
-</p>
+
 <p align="center"><b>Polynomial plotting of Lane</b></p>
 <br>
 
@@ -139,6 +138,7 @@ In the same code cell 4th of notebook, the method calculate_curvature_offset() d
 The 8th cell of Ipython notebook has the code to find lane lines on warped binary image and based to draw the lanes on the image and display the final output including Radius of curvature and offset of vehicle. Below is the final image output:
 
 ![alt text][image11]
+
 <b>Lanes drawn on original image</b>
 <br>
 
