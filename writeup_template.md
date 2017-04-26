@@ -18,7 +18,7 @@ The goals / steps of this project are the following:
 [//]: # (Image References)
 
 [image1]: ./output_images/01-corners.png "Chessboard Corners"
-[image2]: ./output_images/02-undistorted_images.png "Undistorted Images"
+[image2]: ./output_images/02-undistorted_images.png "Undistorted Chessboard Images"
 [image3]: ./output_images/03-undistorted_test6.jpg "Undistorted Lane Image"
 [image4]: ./output_images/04-color_threshold_plot.png "Color Threshold Grid"
 [image5]: ./output_images/05-color_grad_threshold_plot.png "Color and Gradient Threshold Grid"
@@ -51,14 +51,15 @@ There are two functions defined as draw_corners and undistort_img which serves t
 In 2nd cell of Jupyter notebook, imgpoints and objpoints empty lists are declared and one object point called "objp" is defined which is a replicated array of coordinates such that object points will be same for each calibration image. `objpoints` and `imgpoints` will be appended to the list every time the draw_corner() function successfully detect all the chessboard corners in a test image. The draw_corner function applies cv2.findChessboardCorners on a grayscale chessboard image to obtain the corners in the image. For the images where corners can be found, cv2.drawChessboardCorners function is used to draw the corners on original color image of the chessboard. imgpoints and objpoints are appended in the list only for those images where the corners are found. I used provided 20 Camera Calibration images to detect corners, image points and object points from the same.  For 17 out of total 20 images, the cv2.findChessboardCorners function was able to identify the corners. For the remaining 3, it was not able to identify because the images are cropped from some or the other portion such that total number of inner corners are not 9 x 6. All the images are combined in a single grid and are displayed below.
 
 ![alt text][image1]
-<center>Centered text</center>
-<p align="center">Paragraph text</p>
+<p align="center"><b>Chessboard Corners</b></p>
+<br>
 
 The `objpoints` and `imgpoints` are then used to compute the camera calibration matrix and distortion coefficients using the cv2.calibrateCamera() function.  Then cv2.undistort() functin was used for distortion correction on same chessboard images. The undistort_img() function serves the purpose of applying  cv2.calibrateCamera() and cv2.undistort() to the input image. Below is a grid showing all the undistorted chessboard images.
 
 ![alt text][image2]
-
-
+<p align="center"><b>Undistorted Chessboard Images</b></p>
+<br>
+---
 ### Pipeline (single images)
 
 #### 1. Provide an example of a distortion-corrected image.
@@ -66,6 +67,8 @@ The `objpoints` and `imgpoints` are then used to compute the camera calibration 
 As explained above, the functions draw_corners() and undistort_img() serves as a mean for camera calibration and distortion correction. Below is a sample image saved after applying distortion correction to it for the purposes of demonstration.
 
 ![alt text][image3]
+<p align="center"><b>Undistorted Lane Image</b></p>
+<br>
 
 #### 2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
 
@@ -78,18 +81,28 @@ This was a **non-trivial** part of work for me as I do not belong from Computer 
 In the below section, I have provided output images of various thresholding operations. The images are self-explanatory due to labels provided in them.
 
 ![alt text][image4]
+<p align="center"><b>Color Threshold Grid</b></p>
+<br>
 
 ![alt text][image5]
+<p align="center"><b>Color and Gradient Threshold Grid</b></p>
+<br>
 
 ![alt text][image6]
+<p align="center"><b>Sample Thresholded Binary</b></p>
+<br>
 
 #### 3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
 
 In the 3rd Cell of Ipython notebook, the function warp() is declared which gives Perspective Transform matrix and Inverse Perspective Transform matrix by using source and destination points. The source and destination points were chosen by eyeballing the image in Python interactive window and moving cursor to various points. The function warp() not only returns the warped, but it also returns the matrices M and Minv so that these matrices can be used directly for inverse perspective transform at the end of pipeline. I later realized that I could use a flag in warp() function so that it supports perspective transform using M as well as Minv but then I chose to not modify it giving consideration to time. Below is the warped image of the road after applying warp() function to the source image.
 
 ![alt text][image7]
+<p align="center"><b>Sample Warped Image - Bird's Eye View</b></p>
+<br>
 
 ![alt text][image8]
+<p align="center"><b>Processed Image Grid</b></p>
+<br>
 
 #### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 
@@ -102,8 +115,14 @@ Then after, a for loop iterates for each window such that the window slides from
 After completion of window iterations, the lane indices were been retrived from overall non-zero pixels so that the indices constitute only of the part of Lane Lines and rest of the pixel information can be ignored. np.polyfit was then used to plot a line of 2nd degree polynomial through Lane Indices for left as well as right lane. The computed lane line data was then returned from the function so that it can be used for next step.
 
 ![alt text][image9]
+<p align="center"><b>Lane Detection using window search</b></p>
+<br>
 
+<p align="center">
 ![alt text][image10]
+</p>
+<p align="center"><b>Polynomial plotting of Lane</b></p>
+<br>
 
 #### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
@@ -115,7 +134,11 @@ In the same code cell 4th of notebook, the method calculate_curvature_offset() d
 
 The 8th cell of Ipython notebook has the code to find lane lines on warped binary image and based to draw the lanes on the image and display the final output including Radius of curvature and offset of vehicle. Below is the final image output:
 
+<p align="center">
 ![alt text][image11]
+</p>
+<p align="center"><b>Lanes drawn on original image</b></p>
+<br>
 
 ---
 
@@ -125,7 +148,9 @@ The 8th cell of Ipython notebook has the code to find lane lines on warped binar
 
 Here's a [link to my video result](./project_video_processed.mp4)
 
+<p align="center">
 ![video1]
+</p>
 
 ---
 
