@@ -42,6 +42,8 @@ The goals / steps of this project are the following:
 
 You're reading it!
 
+---
+
 ### Camera Calibration
 
 #### 1. Briefly state how you computed the camera matrix and distortion coefficients. Provide an example of a distortion corrected calibration image.
@@ -59,7 +61,9 @@ The `objpoints` and `imgpoints` are then used to compute the camera calibration 
 ![alt text][image2]
 <p align="center"><b>Undistorted Chessboard Images</b></p>
 <br>
+
 ---
+
 ### Pipeline (single images)
 
 #### 1. Provide an example of a distortion-corrected image.
@@ -134,10 +138,8 @@ In the same code cell 4th of notebook, the method calculate_curvature_offset() d
 
 The 8th cell of Ipython notebook has the code to find lane lines on warped binary image and based to draw the lanes on the image and display the final output including Radius of curvature and offset of vehicle. Below is the final image output:
 
-<p align="center">
 ![alt text][image11]
-</p>
-<p align="center"><b>Lanes drawn on original image</b></p>
+<b>Lanes drawn on original image</b>
 <br>
 
 ---
@@ -148,9 +150,7 @@ The 8th cell of Ipython notebook has the code to find lane lines on warped binar
 
 Here's a [link to my video result](./project_video_processed.mp4)
 
-<p align="center">
 ![video1]
-</p>
 
 ---
 
