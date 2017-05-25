@@ -1,7 +1,5 @@
 ### Advanced Lane Finding Project ###
 
-## Udacity - Self Driving Car Nano-Degree ##
-
 Submitted by - Vishal Rangras
 
 The goals / steps of this project are the following:
